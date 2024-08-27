@@ -22,8 +22,10 @@ func TestMain(m *testing.M) {
 	config, err := util.LoadConfig("../..")
 	if err != nil {
 		log.Fatal(" cannot load configuration", err)
-		config.DbDriver = dbDriver
-		config.DbSource = dbSource
+		config = util.AppConfig{
+			DbDriver: dbDriver,
+			DbSource: dbSource,
+		}
 	}
 
 	testDB, err = sql.Open(config.DbDriver, config.DbSource)
