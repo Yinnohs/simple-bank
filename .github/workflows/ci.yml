@@ -39,6 +39,9 @@ jobs:
       
       - name: check code into the go module directory
         uses: actions/checkout@v2
+      
+      - name: setup golang migrate
+        run: go get -v github.com/golang-migrate/migrate/v4/cmd/migrate
 
       - name: setup postgres with migrations
         run: make migrateup
