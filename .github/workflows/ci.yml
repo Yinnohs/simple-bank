@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v2
       
       - name: setup golang migrate
-        run: go get -v github.com/golang-migrate/migrate/v4/cmd/migrate
+        run: $ curl -L https://github.com/golang-migrate/migrate/releases/download/v4.17.1/migrate.darwin-amd64.tar.gz | tar xvz
 
       - name: setup postgres with migrations
         run: make migrateup
