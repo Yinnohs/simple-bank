@@ -22,4 +22,7 @@ test:
 dep:
 	go mod tidy
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlcgenerate dep
+server:
+	go run ./cmd/main.go
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlcgenerate dep server
