@@ -6,7 +6,7 @@ import (
 
 type AppConfig struct {
 	DbDriver    string `mapstructure:"DB_DRIVER"`
-	DbSource    string `mapstructure:"SOURCE"`
+	DbSource    string `mapstructure:"DB_SOURCE"`
 	BaseAddress string `mapstructure:"BASE_ADDRESS"`
 }
 

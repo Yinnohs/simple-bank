@@ -24,7 +24,8 @@ func (store *Store) executeTransaction(ctx context.Context, fn func(*Queries) er
 	tx, err := store.db.BeginTx(ctx, nil)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
+		return err
 	}
 
 	query := New(tx)

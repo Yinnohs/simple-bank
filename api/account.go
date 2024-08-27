@@ -10,12 +10,12 @@ import (
 )
 
 type CreateAccountRequest struct {
-	Owner    string `json:"owner" biding:"required"`
-	Currency string `json:"currency" biding:"required oneof=USD EUR"`
+	Owner    string `json:"owner" binding:"required"`
+	Currency string `json:"currency" binding:"required,oneof=USD EUR"`
 }
 
 type GetAccountByIDRequest struct {
-	ID int64 `uri:"id" biding:"required min=1"`
+	ID int64 `uri:"id" binding:"required,min=1"`
 }
 
 func (server *Server) createAccout(ctx *gin.Context) {

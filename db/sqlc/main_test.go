@@ -29,7 +29,6 @@ func TestMain(m *testing.M) {
 	testDB, err = sql.Open(config.DbDriver, config.DbSource)
 	if err != nil {
 		log.Fatal("Caanot connect to db: ", err.Error())
-		panic(err)
 	}
 
 	testQueries = New(testDB)
