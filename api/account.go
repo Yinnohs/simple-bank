@@ -99,22 +99,39 @@ type AddAccountBalanceRequest struct {
 	Amount    int64 `json:"amount" binding:"required,min=1"`
 }
 
+type AddBalanceResponse struct {
+	Entry   db.Entry   `json:"entry"`
+	Account db.Account `json:"account"`
+}
+
 func (server *Server) addAccountBalance(ctx *gin.Context) {
 	var request AddAccountBalanceRequest
 	if err := ctx.ShouldBindBodyWithJSON(&request); err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 	}
 
-	arg := db.AddToAccountBalanceParams{
+	accountArgs := db.AddToAccountBalanceParams{
 		ID:     request.AccountId,
 		Amount: request.Amount,
 	}
+	entryArgs := db.CreateEntryParams{
+		AccountID: request.AccountId,
+		Amount:    request.Amount,
+	}
 
-	result, err := server.store.AddToAccountBalance(ctx, arg)
+	updatedAccount, err := server.store.AddToAccountBalance(ctx, accountArgs)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 	}
 
-	ctx.JSON(http.StatusOK, result)
+	entry, err := server.store.CreateEntry(ctx, entryArgs)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+
+	ctx.JSON(http.StatusOK, AddBalanceResponse{
+		Account: updatedAccount,
+		Entry:   entry,
+	})
 
 }
