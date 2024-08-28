@@ -32,7 +32,7 @@ func (server *Server) createAccout(ctx *gin.Context) {
 		Balance:  0,
 	}
 
-	account, err := server.store.Queries.CreateAccount(ctx, args)
+	account, err := server.store.CreateAccount(ctx, args)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
@@ -48,7 +48,7 @@ func (server *Server) getAccount(ctx *gin.Context) {
 		return
 	}
 
-	account, err := server.store.Queries.GetAccountById(ctx, request.ID)
+	account, err := server.store.GetAccountById(ctx, request.ID)
 	if err == sql.ErrNoRows {
 		ctx.JSON(http.StatusNotFound, errorResponse(err))
 		return
@@ -80,7 +80,7 @@ func (server *Server) listAccounts(ctx *gin.Context) {
 
 	fmt.Println(args)
 
-	accounts, err := server.store.Queries.FindAllAccounts(ctx, args)
+	accounts, err := server.store.FindAllAccounts(ctx, args)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return

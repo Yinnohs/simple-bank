@@ -7,6 +7,7 @@ import (
 )
 
 type Store interface {
+	Querier
 	executeTransaction(ctx context.Context, fn func(*Queries) error) error
 	TransferTx(ctx context.Context, args TransferTxParams) (TransferTxResult, error)
 }
