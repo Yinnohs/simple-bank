@@ -109,6 +109,20 @@ func (mr *MockStoreMockRecorder) DeleteAccountById(arg0, arg1 interface{}) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAccountById", reflect.TypeOf((*MockStore)(nil).DeleteAccountById), arg0, arg1)
 }
 
+// ExecuteTransaction mocks base method.
+func (m *MockStore) ExecuteTransaction(arg0 context.Context, arg1 func(*db.Queries) error) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ExecuteTransaction", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ExecuteTransaction indicates an expected call of ExecuteTransaction.
+func (mr *MockStoreMockRecorder) ExecuteTransaction(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ExecuteTransaction", reflect.TypeOf((*MockStore)(nil).ExecuteTransaction), arg0, arg1)
+}
+
 // FindAllAccounts mocks base method.
 func (m *MockStore) FindAllAccounts(arg0 context.Context, arg1 db.FindAllAccountsParams) ([]db.Account, error) {
 	m.ctrl.T.Helper()
@@ -242,18 +256,4 @@ func (m *MockStore) UpdateAccountBalance(arg0 context.Context, arg1 db.UpdateAcc
 func (mr *MockStoreMockRecorder) UpdateAccountBalance(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAccountBalance", reflect.TypeOf((*MockStore)(nil).UpdateAccountBalance), arg0, arg1)
-}
-
-// executeTransaction mocks base method.
-func (m *MockStore) executeTransaction(arg0 context.Context, arg1 func(*db.Queries) error) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "executeTransaction", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// executeTransaction indicates an expected call of executeTransaction.
-func (mr *MockStoreMockRecorder) executeTransaction(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "executeTransaction", reflect.TypeOf((*MockStore)(nil).executeTransaction), arg0, arg1)
 }

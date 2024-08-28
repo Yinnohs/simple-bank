@@ -8,7 +8,7 @@ import (
 
 type Store interface {
 	Querier
-	executeTransaction(ctx context.Context, fn func(*Queries) error) error
+	ExecuteTransaction(ctx context.Context, fn func(*Queries) error) error
 	TransferTx(ctx context.Context, args TransferTxParams) (TransferTxResult, error)
 }
 
@@ -26,7 +26,7 @@ func NewStore(db *sql.DB) Store {
 
 // function that executes a trasanccions wrapper
 
-func (store *SQLStore) executeTransaction(ctx context.Context, fn func(*Queries) error) error {
+func (store *SQLStore) ExecuteTransaction(ctx context.Context, fn func(*Queries) error) error {
 	tx, err := store.db.BeginTx(ctx, nil)
 
 	if err != nil {
@@ -64,7 +64,7 @@ type TransferTxResult struct {
 func (store *SQLStore) TransferTx(ctx context.Context, args TransferTxParams) (TransferTxResult, error) {
 	var result TransferTxResult
 
-	err := store.executeTransaction(ctx, func(q *Queries) error {
+	err := store.ExecuteTransaction(ctx, func(q *Queries) error {
 		var err error
 
 		result.Transfer, err = q.CreateTransfer(ctx, CreateTransferParams{

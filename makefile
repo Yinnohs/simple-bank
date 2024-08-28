@@ -25,4 +25,7 @@ dep:
 server:
 	go run ./cmd/main.go
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlcgenerate dep server
+mock-store:
+	mockgen -package mockdb -destination ./db/mock/store.go github.com/yinnohs/simple-bank/db/sqlc Store
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlcgenerate dep server mock-store
