@@ -93,3 +93,28 @@ func (server *Server) listAccounts(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, accounts)
 }
+
+type AddAccountBalanceRequest struct {
+	AccountId int64 `json:"account_id" binding:"required,min=1"`
+	Amount    int64 `json:"amount" binding:"required,min=1"`
+}
+
+func (server *Server) addAccountBalance(ctx *gin.Context) {
+	var request AddAccountBalanceRequest
+	if err := ctx.ShouldBindBodyWithJSON(&request); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+
+	arg := db.AddToAccountBalanceParams{
+		ID:     request.AccountId,
+		Amount: request.Amount,
+	}
+
+	result, err := server.store.AddToAccountBalance(ctx, arg)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+	}
+
+	ctx.JSON(http.StatusOK, result)
+
+}

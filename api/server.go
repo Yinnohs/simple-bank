@@ -17,8 +17,10 @@ func NewServer(store db.Store) *Server {
 	// accountRouterGroup := mainRouterGroup.Group("accounts", gin.WrapH(http.DefaultServeMux))
 
 	router.POST("/api/v1/account/", server.createAccout)
-	router.GET("api/v1/account", server.listAccounts)
-	router.GET("api/v1/account/:id", server.getAccount)
+	router.GET("/api/v1/account", server.listAccounts)
+	router.GET("/api/v1/account/:id", server.getAccount)
+	router.PUT("/api/v1/account/add-balance/", server.addAccountBalance)
+	router.POST("/api/v1/transfer/", server.createNewTransfer)
 
 	server.router = router
 
